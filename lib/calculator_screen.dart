@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'calculator_button.dart';
+import 'calculator_engine.dart';
 
 class CalculatorScreen extends StatefulWidget {
   const CalculatorScreen({super.key});
@@ -11,6 +12,7 @@ class CalculatorScreen extends StatefulWidget {
 class _CalculatorScreenState extends State<CalculatorScreen> {
   String _expression = '';
   String _display = '0';
+  final CalculatorEngine _engine = CalculatorEngine();
 
   // Color constants matching the design
   static const Color scientificButtonColor = Color(0xFF8FA4B0);
@@ -78,17 +80,11 @@ class _CalculatorScreenState extends State<CalculatorScreen> {
   }
 
   void _evaluate() {
-    try {
-      // Replace display operators with math operators
-      String evalExpression = _expression
-          .replaceAll('×', '*')
-          .replaceAll('÷', '/');
-
-      // Basic evaluation will be enhanced in later commits
-      // For now, just show the expression
-      _display = _expression;
-    } catch (e) {
-      _display = 'Error';
+    if (_expression.isEmpty) return;
+    String result = _engine.evaluate(_expression);
+    _display = result;
+    if (result != 'Error') {
+      _expression = result;
     }
   }
 
