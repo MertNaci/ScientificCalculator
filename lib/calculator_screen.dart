@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'calculator_button.dart';
 
 class CalculatorScreen extends StatefulWidget {
   const CalculatorScreen({super.key});
@@ -9,6 +10,18 @@ class CalculatorScreen extends StatefulWidget {
 
 class _CalculatorScreenState extends State<CalculatorScreen> {
   String _display = '0';
+
+  // Color constants matching the design
+  static const Color scientificButtonColor = Color(0xFF8FA4B0);
+  static const Color numberButtonColor = Color(0xFF3B3B3B);
+  static const Color operatorButtonColor = Color(0xFFFF9800);
+  static const Color deleteButtonColor = Color(0xFFE57373);
+  static const Color clearButtonColor = Color(0xFFE53935);
+  static const Color equalsButtonColor = Color(0xFF4CAF50);
+
+  void _onButtonPressed(String value) {
+    // Logic will be implemented in later commits
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -48,11 +61,61 @@ class _CalculatorScreenState extends State<CalculatorScreen> {
               ),
             ),
           ),
-          // Buttons will be added in the next commits
-          const Expanded(
-            flex: 5,
-            child: Placeholder(
-              color: Colors.grey,
+          // Scientific function buttons - Row 1
+          Row(
+            children: [
+              CalculatorButton(
+                text: 'sin(',
+                backgroundColor: scientificButtonColor,
+                onPressed: () => _onButtonPressed('sin('),
+              ),
+              CalculatorButton(
+                text: 'cos(',
+                backgroundColor: scientificButtonColor,
+                onPressed: () => _onButtonPressed('cos('),
+              ),
+              CalculatorButton(
+                text: 'tan(',
+                backgroundColor: scientificButtonColor,
+                onPressed: () => _onButtonPressed('tan('),
+              ),
+              CalculatorButton(
+                text: 'log(',
+                backgroundColor: scientificButtonColor,
+                onPressed: () => _onButtonPressed('log('),
+              ),
+            ],
+          ),
+          // Scientific function buttons - Row 2
+          Row(
+            children: [
+              CalculatorButton(
+                text: 'sqrt(',
+                backgroundColor: scientificButtonColor,
+                onPressed: () => _onButtonPressed('sqrt('),
+              ),
+              CalculatorButton(
+                text: '^',
+                backgroundColor: scientificButtonColor,
+                onPressed: () => _onButtonPressed('^'),
+              ),
+              CalculatorButton(
+                text: '(',
+                backgroundColor: scientificButtonColor,
+                onPressed: () => _onButtonPressed('('),
+              ),
+              CalculatorButton(
+                text: ')',
+                backgroundColor: scientificButtonColor,
+                onPressed: () => _onButtonPressed(')'),
+              ),
+            ],
+          ),
+          // Remaining buttons will be added in the next commit
+          Expanded(
+            flex: 3,
+            child: Container(
+              color: numberButtonColor,
             ),
           ),
         ],
