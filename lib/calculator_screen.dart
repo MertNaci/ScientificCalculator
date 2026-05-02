@@ -211,7 +211,23 @@ class _CalculatorScreenState extends State<CalculatorScreen> {
               ),
             ],
           ),
-          // C and = buttons will be added in the next commit
+          // Bottom row: C and =
+          Row(
+            children: [
+              CalculatorButton(
+                text: 'C',
+                backgroundColor: clearButtonColor,
+                flex: 2,
+                onPressed: () => _onButtonPressed('C'),
+              ),
+              CalculatorButton(
+                text: '=',
+                backgroundColor: equalsButtonColor,
+                flex: 2,
+                onPressed: () => _onButtonPressed('='),
+              ),
+            ],
+          ),
         ],
       ),
     );
