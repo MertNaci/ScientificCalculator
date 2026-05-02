@@ -9,6 +9,7 @@ class CalculatorScreen extends StatefulWidget {
 }
 
 class _CalculatorScreenState extends State<CalculatorScreen> {
+  String _expression = '';
   String _display = '0';
 
   // Color constants matching the design
@@ -20,7 +21,75 @@ class _CalculatorScreenState extends State<CalculatorScreen> {
   static const Color equalsButtonColor = Color(0xFF4CAF50);
 
   void _onButtonPressed(String value) {
-    // Logic will be implemented in later commits
+    setState(() {
+      switch (value) {
+        case 'C':
+          _clear();
+          break;
+        case '⌫':
+          _backspace();
+          break;
+        case '=':
+          _evaluate();
+          break;
+        default:
+          _appendValue(value);
+          break;
+      }
+    });
+  }
+
+  void _clear() {
+    _expression = '';
+    _display = '0';
+  }
+
+  void _backspace() {
+    if (_expression.isNotEmpty) {
+      // Handle multi-character deletions (sin(, cos(, tan(, log(, sqrt()
+      if (_expression.endsWith('sin(')) {
+        _expression = _expression.substring(0, _expression.length - 4);
+      } else if (_expression.endsWith('cos(')) {
+        _expression = _expression.substring(0, _expression.length - 4);
+      } else if (_expression.endsWith('tan(')) {
+        _expression = _expression.substring(0, _expression.length - 4);
+      } else if (_expression.endsWith('log(')) {
+        _expression = _expression.substring(0, _expression.length - 4);
+      } else if (_expression.endsWith('sqrt(')) {
+        _expression = _expression.substring(0, _expression.length - 5);
+      } else {
+        _expression = _expression.substring(0, _expression.length - 1);
+      }
+      _display = _expression.isEmpty ? '0' : _expression;
+    }
+  }
+
+  void _appendValue(String value) {
+    if (_expression == '0' && value != '.' && !_isOperator(value)) {
+      _expression = value;
+    } else {
+      _expression += value;
+    }
+    _display = _expression;
+  }
+
+  bool _isOperator(String value) {
+    return value == '+' || value == '-' || value == '×' || value == '÷';
+  }
+
+  void _evaluate() {
+    try {
+      // Replace display operators with math operators
+      String evalExpression = _expression
+          .replaceAll('×', '*')
+          .replaceAll('÷', '/');
+
+      // Basic evaluation will be enhanced in later commits
+      // For now, just show the expression
+      _display = _expression;
+    } catch (e) {
+      _display = 'Error';
+    }
   }
 
   @override
