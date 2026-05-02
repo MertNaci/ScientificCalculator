@@ -67,16 +67,63 @@ class _CalculatorScreenState extends State<CalculatorScreen> {
   }
 
   void _appendValue(String value) {
+    // If display is '0', replace it (unless it's a decimal point or operator)
     if (_expression == '0' && value != '.' && !_isOperator(value)) {
       _expression = value;
-    } else {
-      _expression += value;
+      _display = _expression;
+      return;
     }
+
+    // Get the last character of the current expression
+    String lastChar = _expression.isNotEmpty
+        ? _expression[_expression.length - 1]
+        : '';
+
+    // Prevent consecutive operators: replace the last operator with the new one
+    if (_isOperator(value) && _isOperatorChar(lastChar)) {
+      _expression = _expression.substring(0, _expression.length - 1) + value;
+      _display = _expression;
+      return;
+    }
+
+    // Prevent operator at the very beginning (except minus for negative numbers)
+    if (_expression.isEmpty && _isOperator(value) && value != '-') {
+      return;
+    }
+
+    // Prevent multiple decimal points in the same number
+    if (value == '.') {
+      // Find the last number segment (after the last operator or parenthesis)
+      String lastNumber = _getLastNumberSegment();
+      if (lastNumber.contains('.')) {
+        return;
+      }
+    }
+
+    _expression += value;
     _display = _expression;
+  }
+
+  /// Returns the last number segment from the expression
+  /// (everything after the last operator or parenthesis)
+  String _getLastNumberSegment() {
+    String segment = '';
+    for (int i = _expression.length - 1; i >= 0; i--) {
+      String ch = _expression[i];
+      if (_isOperatorChar(ch) || ch == '(' || ch == ')') {
+        break;
+      }
+      segment = ch + segment;
+    }
+    return segment;
   }
 
   bool _isOperator(String value) {
     return value == '+' || value == '-' || value == '×' || value == '÷';
+  }
+
+  bool _isOperatorChar(String ch) {
+    return ch == '+' || ch == '-' || ch == '×' || ch == '÷';
   }
 
   void _evaluate() {
