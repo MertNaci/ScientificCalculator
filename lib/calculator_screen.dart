@@ -111,13 +111,107 @@ class _CalculatorScreenState extends State<CalculatorScreen> {
               ),
             ],
           ),
-          // Remaining buttons will be added in the next commit
-          Expanded(
-            flex: 3,
-            child: Container(
-              color: numberButtonColor,
-            ),
+          // Number pad row: 7, 8, 9, +
+          Row(
+            children: [
+              CalculatorButton(
+                text: '7',
+                backgroundColor: numberButtonColor,
+                onPressed: () => _onButtonPressed('7'),
+              ),
+              CalculatorButton(
+                text: '8',
+                backgroundColor: numberButtonColor,
+                onPressed: () => _onButtonPressed('8'),
+              ),
+              CalculatorButton(
+                text: '9',
+                backgroundColor: numberButtonColor,
+                onPressed: () => _onButtonPressed('9'),
+              ),
+              CalculatorButton(
+                text: '+',
+                backgroundColor: operatorButtonColor,
+                onPressed: () => _onButtonPressed('+'),
+              ),
+            ],
           ),
+          // Number pad row: 4, 5, 6, ×
+          Row(
+            children: [
+              CalculatorButton(
+                text: '4',
+                backgroundColor: numberButtonColor,
+                onPressed: () => _onButtonPressed('4'),
+              ),
+              CalculatorButton(
+                text: '5',
+                backgroundColor: numberButtonColor,
+                onPressed: () => _onButtonPressed('5'),
+              ),
+              CalculatorButton(
+                text: '6',
+                backgroundColor: numberButtonColor,
+                onPressed: () => _onButtonPressed('6'),
+              ),
+              CalculatorButton(
+                text: '×',
+                backgroundColor: operatorButtonColor,
+                onPressed: () => _onButtonPressed('×'),
+              ),
+            ],
+          ),
+          // Number pad row: 1, 2, 3, -
+          Row(
+            children: [
+              CalculatorButton(
+                text: '1',
+                backgroundColor: numberButtonColor,
+                onPressed: () => _onButtonPressed('1'),
+              ),
+              CalculatorButton(
+                text: '2',
+                backgroundColor: numberButtonColor,
+                onPressed: () => _onButtonPressed('2'),
+              ),
+              CalculatorButton(
+                text: '3',
+                backgroundColor: numberButtonColor,
+                onPressed: () => _onButtonPressed('3'),
+              ),
+              CalculatorButton(
+                text: '-',
+                backgroundColor: operatorButtonColor,
+                onPressed: () => _onButtonPressed('-'),
+              ),
+            ],
+          ),
+          // Number pad row: 0, ., ⌫, ÷
+          Row(
+            children: [
+              CalculatorButton(
+                text: '0',
+                backgroundColor: numberButtonColor,
+                onPressed: () => _onButtonPressed('0'),
+              ),
+              CalculatorButton(
+                text: '.',
+                backgroundColor: numberButtonColor,
+                onPressed: () => _onButtonPressed('.'),
+              ),
+              CalculatorButton(
+                text: '⌫',
+                backgroundColor: deleteButtonColor,
+                onPressed: () => _onButtonPressed('⌫'),
+              ),
+              CalculatorButton(
+                text: '÷',
+                backgroundColor: operatorButtonColor,
+                onPressed: () => _onButtonPressed('÷'),
+              ),
+            ],
+          ),
+          // C and = buttons will be added in the next commit
         ],
       ),
     );
