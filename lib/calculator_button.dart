@@ -22,22 +22,23 @@ class CalculatorButton extends StatelessWidget {
       flex: flex,
       child: Container(
         margin: const EdgeInsets.all(1),
-        child: ElevatedButton(
-          onPressed: onPressed,
-          style: ElevatedButton.styleFrom(
-            backgroundColor: backgroundColor,
-            foregroundColor: textColor,
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(0),
-            ),
-            padding: const EdgeInsets.symmetric(vertical: 18),
-            elevation: 0,
-          ),
-          child: Text(
-            text,
-            style: const TextStyle(
-              fontSize: 20,
-              fontWeight: FontWeight.w500,
+        child: Material(
+          color: backgroundColor,
+          child: InkWell(
+            onTap: onPressed,
+            splashColor: Colors.white.withOpacity(0.3),
+            highlightColor: Colors.white.withOpacity(0.1),
+            child: Container(
+              padding: const EdgeInsets.symmetric(vertical: 18),
+              alignment: Alignment.center,
+              child: Text(
+                text,
+                style: TextStyle(
+                  color: textColor,
+                  fontSize: 20,
+                  fontWeight: FontWeight.w500,
+                ),
+              ),
             ),
           ),
         ),
