@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'calculator_button.dart';
+import 'calculation_history.dart';
 import 'calculator_engine.dart';
+import 'history_panel.dart';
 
 class CalculatorScreen extends StatefulWidget {
   const CalculatorScreen({super.key});
@@ -13,6 +15,8 @@ class _CalculatorScreenState extends State<CalculatorScreen> {
   String _expression = '';
   String _display = '0';
   final CalculatorEngine _engine = CalculatorEngine();
+  final CalculationHistory _history = CalculationHistory();
+  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
   // Color constants matching the design
   static const Color scientificButtonColor = Color(0xFF8FA4B0);
@@ -128,17 +132,36 @@ class _CalculatorScreenState extends State<CalculatorScreen> {
 
   void _evaluate() {
     if (_expression.isEmpty) return;
+    String originalExpression = _expression;
     String result = _engine.evaluate(_expression);
     _display = result;
     if (result != 'Error') {
+      _history.add(originalExpression, result);
       _expression = result;
     }
+  }
+
+  void _loadFromHistory(String result) {
+    setState(() {
+      _expression = result;
+      _display = result;
+    });
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      key: _scaffoldKey,
       backgroundColor: Colors.black,
+      endDrawer: HistoryPanel(
+        history: _history,
+        onRecordTap: _loadFromHistory,
+        onClearHistory: () {
+          setState(() {
+            _history.clear();
+          });
+        },
+      ),
       appBar: AppBar(
         title: const Text(
           'Scientific Calculator',
@@ -149,6 +172,15 @@ class _CalculatorScreenState extends State<CalculatorScreen> {
         ),
         backgroundColor: Colors.black,
         elevation: 0,
+        actions: [
+          IconButton(
+            icon: const Icon(Icons.history, color: Colors.white70),
+            tooltip: 'İşlem Geçmişi',
+            onPressed: () {
+              _scaffoldKey.currentState?.openEndDrawer();
+            },
+          ),
+        ],
       ),
       body: Column(
         children: [

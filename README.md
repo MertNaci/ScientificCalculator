@@ -44,3 +44,7 @@ flutter run
 - **Framework:** Flutter
 - **Language:** Dart
 - **Platforms:** Android, iOS, Web, Windows
+
+## Developer
+
+Mert Naci Akalın
